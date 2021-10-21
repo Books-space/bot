@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "run bot",
+            "type": "python",
+            "request": "launch",
+            "module": "bot",
+            "console": "internalConsole"
+        }
+    ]
+}
