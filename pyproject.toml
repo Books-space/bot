@@ -10,6 +10,7 @@ PySocks = "^1.7.1"
 mypy = "^0.910"
 wemake-python-styleguide = "^0.15.3"
 python-telegram-bot = {extras = ["socks"], version = "^13.7"}
+httpx = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 

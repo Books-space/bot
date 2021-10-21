@@ -12,6 +12,7 @@ def main():
 
     bb = book_bot.dispatcher
     bb.add_handler(CommandHandler('start', commands.hello))
+    bb.add_handler(CommandHandler('search', commands.search))
 
     logging.info('Бот стартовал;')
 
