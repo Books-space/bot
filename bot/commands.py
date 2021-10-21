@@ -14,9 +14,9 @@ def hello(update, context):
 
 
 def search(update, context):
-    if context.args:
+    if update.message.text:
         books_client = Client()
-        phrase = ' '.join(context.args)
+        phrase = update.message.text
         response = books_client.search(phrase)
         logger.debug(response)
         logger.debug(type(response))
