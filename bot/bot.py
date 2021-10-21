@@ -1,9 +1,8 @@
 import logging
 
-from telegram.ext import Updater
+from telegram.ext import CommandHandler, Updater
 
-from bot import bot, config
-
+from bot import commands, config
 
 logging.basicConfig(level=logging.INFO)
 
@@ -12,7 +11,7 @@ def main():
     book_bot = Updater(config.api_key, use_context=True, request_kwargs=config.proxy)
 
     bb = book_bot.dispatcher
-    bb.addHandler('Привет', bot.hello)
+    bb.add_handler(CommandHandler('start', commands.hello))
 
     logging.info('Бот стартовал;')
 

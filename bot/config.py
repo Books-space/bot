@@ -3,7 +3,7 @@ import os
 api_key = os.environ['API_KEY']
 proxy_url = os.environ['PROXY_URL']
 proxy_username = os.environ['PROXY_USERNAME']
-proxy_password = os.environ['PROXY_PASSW']
+proxy_password = os.environ['PROXY_PASSWORD']
 
 
 proxy = {

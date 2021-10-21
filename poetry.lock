@@ -431,6 +431,7 @@ python-versions = ">=3.6"
 APScheduler = "3.6.3"
 cachetools = "4.2.2"
 certifi = "*"
+PySocks = {version = "*", optional = true, markers = "extra == \"socks\""}
 pytz = ">=2018.6"
 tornado = ">=6.1"
 
@@ -605,7 +606,7 @@ typing_extensions = ">=3.6,<4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "95723c3d8f48282e35cde64c3c89f91fdc3aba8c6be91054113e58812e8c521f"
+content-hash = "55f4f6c97b0e7dbd4201ee96d655b49d46cced369e1e797de338d76ba2b89cfa"
 
 [metadata.files]
 apscheduler = [
