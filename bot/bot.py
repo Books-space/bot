@@ -1,6 +1,6 @@
 import logging
 
-from telegram.ext import CommandHandler, MessageHandler, Updater, Filters
+from telegram.ext import Filters, MessageHandler, Updater
 
 from bot import commands, config
 
