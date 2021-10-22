@@ -26,10 +26,18 @@ def straighten_author(inverted_author: str) -> str:
 
 
 def remove_author_from_title(title: str, author: str) -> str:
+    splited_author = author.split()
+    shortened_author = '{0} {1}'.format(splited_author[0], splited_author[-1])
+    splited_author.insert(0, splited_author.pop())
+    inverted_author = ' '.join(splited_author)
     if title.startswith(author):
         title = title.replace(author, '', 1)
-        if title.startswith(': '):
-            title = title.replace(': ', '', 1)
+    elif title.startswith(shortened_author):
+        title = title.replace(shortened_author, '', 1)
+    elif title.startswith(inverted_author):
+        title = title.replace(inverted_author, '')
+    if title.startswith(': '):
+        title = title.replace(': ', '', 1)
     return title
 
 
