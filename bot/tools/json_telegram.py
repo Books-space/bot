@@ -39,7 +39,7 @@ def shorten_annotation(annotation: str) -> str:
     return ('{0}...'.format(annotation[:SHORT_ANNOTATION_LEN]))
 
 
-def convert_to_messages(response: list[str]) -> list[str]:
+def convert_to_messages(response: list[dict]) -> list[str]:
     tm_messages = []
     for result_num, book_str in enumerate(response, start=1):
         book = Book(**book_str)
