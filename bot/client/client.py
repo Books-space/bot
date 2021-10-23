@@ -7,7 +7,7 @@ class BooksMarketplaceClient:  # noqa: WPS306
     timeout = 5
 
     def __init__(self, backend_url: str):
-        self.url = backend_url
+        self.url = '{0}{1}'.format(backend_url, '/api/v1/books/')
 
     def search(self, phrase) -> str:
         parameter = {'search': phrase}
