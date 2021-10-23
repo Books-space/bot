@@ -4,7 +4,7 @@ api_key = os.environ['API_KEY']
 proxy_url = os.environ['PROXY_URL']
 proxy_username = os.environ['PROXY_USERNAME']
 proxy_password = os.environ['PROXY_PASSWORD']
-
+backend_url = os.environ['BACKEND_URL']
 
 proxy = {
     'proxy_url': proxy_url,

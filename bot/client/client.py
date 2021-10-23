@@ -3,9 +3,11 @@ import httpx
 
 class BooksMarketplaceClient:  # noqa: WPS306
 
-    url = 'http://127.0.0.1:5000/api/v1/books/'
     ok_status_code = 201
     timeout = 5
+
+    def __init__(self, backend_url: str):
+        self.url = backend_url
 
     def search(self, phrase) -> str:
         parameter = {'search': phrase}
