@@ -3,6 +3,7 @@ import logging
 from telegram import ParseMode
 
 from bot.client.client import BooksMarketplaceClient as Client
+from bot.config import backend_url
 from bot.tools.json_telegram import convert_to_messages
 
 logger = logging.getLogger(__name__)
@@ -15,7 +16,7 @@ def hello(update, context):
 
 def search(update, context):
     if update.message.text:
-        books_client = Client()
+        books_client = Client(backend_url)
         phrase = update.message.text
         response = books_client.search(phrase)
         logger.debug(response)
