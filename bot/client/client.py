@@ -1,3 +1,5 @@
+import logging
+
 import httpx
 
 
@@ -11,4 +13,11 @@ class BooksMarketplaceClient:  # noqa: WPS306
 
     def search(self, phrase) -> str:
         parameter = {'search': phrase}
-        return httpx.get(self.url, params=parameter).json()
+        try:  # noqa: WPS229
+            response = httpx.get(self.url, params=parameter)
+            response.raise_for_status()
+        except httpx.HTTPError as exc:
+            logging.exception(exc)
+            raise RuntimeError
+        logging.debug(response.json())
+        return response.json()
