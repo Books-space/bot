@@ -11,4 +11,6 @@ class BooksMarketplaceClient:  # noqa: WPS306
 
     def search(self, phrase) -> str:
         parameter = {'search': phrase}
-        return httpx.get(self.url, params=parameter).json()
+        response = httpx.get(self.url, params=parameter)
+        response.raise_for_status()
+        return response.json()
