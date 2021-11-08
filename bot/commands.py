@@ -16,10 +16,11 @@ ID, TITLE, AUTHOR, PUBLISHER, ISBN, YEAR, COVER, ANNOTATION, NEW_ISBN = range(9)
 
 
 def hello(update, context):
-    update.message.reply_text(
+    update.message.reply_text(''.join([
         'Привет, пользователь! Это справочника',
-        ' книг Booksmarket. Чтобы искать книги по строке в названии и имени автора просто набери ',
-        'эту строку.\nЧтобы добавить книгу набери /add',
+        ' книг Booksmarket. Чтобы искать книги по строке в названии и имени автора просто набери',
+        ' эту строку.\nЧтобы добавить книгу набери /add',
+    ]),
     )
 
 
@@ -48,46 +49,51 @@ def search(update, context):
 
 
 def add(update, _):
-    update.message.reply_text(
+    update.message.reply_text(''.join([
         'Привет. Приступим к добавлению новой книги в наш справочник. ',
         'Какой внешний id (целое число) ей присвоим?',
+    ]),
     )
     return ID
 
 
 def get_id(update, context):
     context.user_data['book_id'] = update.message.text
-    update.message.reply_text(
+    update.message.reply_text(''.join([
         f'OK. Внешний id книги "{context.user_data["book_id"]}" принят;\n',
         'Теперь введи название книги.',
+    ]),
     )
     return TITLE
 
 
 def get_title(update, context):
     context.user_data['book_title'] = update.message.text
-    update.message.reply_text(
+    update.message.reply_text(''.join([
         f'OK. Название "{context.user_data["book_title"]}" принято;',
         ' Теперь введи автора книги или ',
         '/skip чтобы пропустить шаг.',
+    ]),
     )
     return AUTHOR
 
 
 def get_author(update, context):
     context.user_data['book_author'] = update.message.text
-    update.message.reply_text(
+    update.message.reply_text(''.join([
         f'OK. Автор "{context.user_data["book_author"]}" принят; Теперь введи издательство книги',
         'или /skip чтобы пропустить.',
+    ]),
     )
     return PUBLISHER
 
 
 def skip_author(update, context):
     context.user_data['book_author'] = None
-    update.message.reply_text(
-        'OK. Автора пропустили; Теперь введи издательство книги ',
-        'или /skip чтобы пропустить.',
+    update.message.reply_text(''.join([
+        'OK. Автора пропустили; Теперь введи издательство книги',
+        ' или /skip чтобы пропустить.',
+    ]),
     )
     return PUBLISHER
 
@@ -116,18 +122,20 @@ def get_isbn(update, context):
 
 def get_year(update, context):
     context.user_data['book_year'] = update.message.text
-    update.message.reply_text(
+    update.message.reply_text(''.join([
         f'OK. Год выпуска книги "{context.user_data["book_year"]}" принят; Теперь введи URL ',
         'изображения обложки книги',
+    ]),
     )
     return COVER
 
 
 def get_cover(update, context):
     context.user_data['book_cover'] = update.message.text
-    update.message.reply_text(
+    update.message.reply_text(''.join([
         f'OK. URL обложки книги "{context.user_data["book_cover"]}" принят; Теперь',
         ' введи аннотацию книги или /skip чтобы пропустить',
+    ]),
     )
     return ANNOTATION
 
@@ -196,11 +204,13 @@ def send_book_to_backend(update, book_dict):
         response = books_client.add(book_dict)
         logger.debug(response)
         logger.debug(type(response))
+        update.message.reply_text('Поздравляю! Заданная тобой книга сохранена в справочнике!')
     except httpx.RemoteProtocolError as exc:
         logger.debug(exc)
-        update.message.reply_text(
+        update.message.reply_text(''.join([
             'В нашем справочнике уже есть книга с таким названием.',
             ' Попробуй, пожалуйста, задать другой ISBN или набери /cancel для отмены.',
+        ]),
         )
         return NEW_ISBN
     except Exception as exc:
@@ -208,5 +218,4 @@ def send_book_to_backend(update, book_dict):
         update.message.reply_text(
             'Ой, у нас что-то пошло не так. Попробуй, пожалуйста, добавить книгу чуть позже.',
         )
-    update.message.reply_text('Поздравляю! Заданная тобой книга сохранена в справочнике!')
     return ConversationHandler.END
