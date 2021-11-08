@@ -5,6 +5,7 @@ from telegram.ext import Filters, MessageHandler, Updater, ConversationHandler, 
 from bot import config
 
 from bot.commands import (
+    hello,
     search,
     add,
     get_id,
@@ -52,6 +53,7 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel_book_add)],
     )
 
+    bot_dispatcher.add_handler(CommandHandler('start', hello))
     bot_dispatcher.add_handler(CommandHandler('test_add', add_test_book))
     bot_dispatcher.add_handler(conv_handler)
     bot_dispatcher.add_handler(MessageHandler(Filters.text, search))

@@ -16,7 +16,9 @@ ID, TITLE, AUTHOR, PUBLISHER, ISBN, YEAR, COVER, ANNOTATION, NEW_ISBN = range(9)
 
 
 def hello(update, context):
-    update.message.reply_text('Привет, пользователь! Ты вызвал команду /start')
+    update.message.reply_text('Привет, пользователь! Ты вызвал команду /start нашего справочника'
+    ' книг Booksmarket. Чтобы искать книги по строке в названии и имени автора просто набери '
+    'эту строку.\nЧтобы добавить книгу набери /add')
 
 
 def search(update, context):
@@ -239,7 +241,6 @@ def get_another_isbn(update, context):
 
 
 def send_book_to_backend(update, book_dict):
-
     try:
         books_client = Client(backend_url)
         response = books_client.add(book_dict)
@@ -259,8 +260,8 @@ def send_book_to_backend(update, book_dict):
     update.message.reply_text('Поздравляю! Заданная тобой книга сохранена в справочнике!')
     return ConversationHandler.END
 
-def add_test_book(update, context):
 
+def add_test_book(update, context):
     test_book = {
         'id': 11111,
         'title': 'Test Book',
@@ -271,6 +272,5 @@ def add_test_book(update, context):
         'cover': 'asdfagg',
         'annotation': 'Test anotation',
     }
-    
     send_book_to_backend(update, test_book)
     
