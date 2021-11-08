@@ -23,4 +23,4 @@ make run
 
 Of course, bookmarket backend application running is needed.
 
-If all of these is done you can you telegram bot.
+If all of these is done, you can run your telegram bot.
