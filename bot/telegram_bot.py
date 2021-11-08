@@ -22,14 +22,10 @@ from bot.commands import (
     cancel_book_add,
     get_another_isbn,
     ID, TITLE, AUTHOR, PUBLISHER, ISBN, YEAR, COVER, ANNOTATION, NEW_ISBN,
-    add_test_book,
 )
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-
-
 
 
 def main():
@@ -54,7 +50,6 @@ def main():
     )
 
     bot_dispatcher.add_handler(CommandHandler('start', hello))
-    bot_dispatcher.add_handler(CommandHandler('test_add', add_test_book))
     bot_dispatcher.add_handler(conv_handler)
     bot_dispatcher.add_handler(MessageHandler(Filters.text, search))
 

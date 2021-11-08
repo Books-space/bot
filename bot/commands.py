@@ -16,7 +16,7 @@ ID, TITLE, AUTHOR, PUBLISHER, ISBN, YEAR, COVER, ANNOTATION, NEW_ISBN = range(9)
 
 
 def hello(update, context):
-    update.message.reply_text('Привет, пользователь! Ты вызвал команду /start нашего справочника'
+    update.message.reply_text('Привет, пользователь! Это справочника'
     ' книг Booksmarket. Чтобы искать книги по строке в названии и имени автора просто набери '
     'эту строку.\nЧтобы добавить книгу набери /add')
 
@@ -259,18 +259,3 @@ def send_book_to_backend(update, book_dict):
         )
     update.message.reply_text('Поздравляю! Заданная тобой книга сохранена в справочнике!')
     return ConversationHandler.END
-
-
-def add_test_book(update, context):
-    test_book = {
-        'id': 11111,
-        'title': 'Test Book',
-        'author': 'Auth Or',
-        'publisher': 'Default Pub',
-        'isbn': '11111111',
-        'year': 1989,
-        'cover': 'asdfagg',
-        'annotation': 'Test anotation',
-    }
-    send_book_to_backend(update, test_book)
-    
