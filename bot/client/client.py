@@ -1,5 +1,4 @@
 import httpx
-import json
 
 
 class BooksMarketplaceClient:  # noqa: WPS306
@@ -18,4 +17,4 @@ class BooksMarketplaceClient:  # noqa: WPS306
 
     def add(self, book_dict) -> str:
         response = httpx.post(self.url, json=book_dict)
-        return response
+        return response.json()

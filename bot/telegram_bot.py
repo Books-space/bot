@@ -1,28 +1,8 @@
 import logging
 
-from telegram.ext import Filters, MessageHandler, Updater, ConversationHandler, CommandHandler
+from telegram.ext import CommandHandler, ConversationHandler, Filters, MessageHandler, Updater
 
-from bot import config
-
-from bot.commands import (
-    hello,
-    search,
-    add,
-    get_id,
-    get_title,
-    get_author,
-    skip_author,
-    get_publisher,
-    skip_publisher,
-    get_isbn,
-    get_year,
-    get_cover,
-    get_annotation,
-    skip_annotation,
-    cancel_book_add,
-    get_another_isbn,
-    ID, TITLE, AUTHOR, PUBLISHER, ISBN, YEAR, COVER, ANNOTATION, NEW_ISBN,
-)
+from bot import commands, config
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -34,24 +14,33 @@ def main():
     bot_dispatcher = book_bot.dispatcher
 
     conv_handler = ConversationHandler(
-        entry_points=[CommandHandler('add', add)],
+        entry_points=[CommandHandler('add', commands.add)],
         states={
-            ID: [MessageHandler(Filters.text, get_id)],
-            TITLE: [MessageHandler(Filters.text, get_title)],
-            AUTHOR: [CommandHandler('skip', skip_author), MessageHandler(Filters.text, get_author)],
-            PUBLISHER: [CommandHandler('skip', skip_publisher), MessageHandler(Filters.text, get_publisher)],
-            ISBN: [MessageHandler(Filters.text, get_isbn)],
-            YEAR: [MessageHandler(Filters.text, get_year)],
-            COVER: [MessageHandler(Filters.text, get_cover)],
-            ANNOTATION: [CommandHandler('skip', skip_annotation), MessageHandler(Filters.text, get_annotation)],
-            NEW_ISBN: [MessageHandler(Filters.text, get_another_isbn)]
+            commands.ID: [MessageHandler(Filters.text, commands.get_id)],
+            commands.TITLE: [MessageHandler(Filters.text, commands.get_title)],
+            commands.AUTHOR: [
+                CommandHandler('skip', commands.skip_author),
+                MessageHandler(Filters.text, commands.get_author),
+            ],
+            commands.PUBLISHER: [
+                CommandHandler('skip', commands.skip_publisher),
+                MessageHandler(Filters.text, commands.get_publisher),
+            ],
+            commands.ISBN: [MessageHandler(Filters.text, commands.get_isbn)],
+            commands.YEAR: [MessageHandler(Filters.text, commands.get_year)],
+            commands.COVER: [MessageHandler(Filters.text, commands.get_cover)],
+            commands.ANNOTATION: [
+                CommandHandler('skip', commands.skip_annotation),
+                MessageHandler(Filters.text, commands.get_annotation),
+            ],
+            commands.NEW_ISBN: [MessageHandler(Filters.text, commands.get_another_isbn)],
         },
-        fallbacks=[CommandHandler('cancel', cancel_book_add)],
+        fallbacks=[CommandHandler('cancel', commands.cancel_book_add)],
     )
 
-    bot_dispatcher.add_handler(CommandHandler('start', hello))
+    bot_dispatcher.add_handler(CommandHandler('start', commands.hello))
     bot_dispatcher.add_handler(conv_handler)
-    bot_dispatcher.add_handler(MessageHandler(Filters.text, search))
+    bot_dispatcher.add_handler(MessageHandler(Filters.text, commands.search))
 
     logger.info('Бот стартовал;')
 
