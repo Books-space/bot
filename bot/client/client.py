@@ -14,3 +14,7 @@ class BooksMarketplaceClient:  # noqa: WPS306
         response = httpx.get(self.url, params=parameter)
         response.raise_for_status()
         return response.json()
+
+    def add(self, book_dict) -> str:
+        response = httpx.post(self.url, json=book_dict)
+        return response.json()
